@@ -1,0 +1,31 @@
+{
+	"name": "vscode-snippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": ["python"],
+				"path": "./vscode/python.json"
+			},
+			{
+				"language": ["c"],
+				"path": "./vscode/c.json"
+			},
+			{
+				"language": ["cpp"],
+				"path": "./vscode/cpp.json"
+			},
+			{
+				"language": ["java"],
+				"path": "./vscode/java.json"
+			},
+			{
+				"language": ["css"],
+				"path": "./vscode/css.json"
+			},
+			{
+				"language": ["fortran"],
+				"path": "./vscode/fortran.json"
+			}
+		]
+	}
+}
