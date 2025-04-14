@@ -1,6 +1,6 @@
 return {
   "Pocco81/auto-save.nvim",
-  -- enabled = false,
+  enabled = false,
   opts = {
     execution_message = {
       -- message = function() -- message to print on save

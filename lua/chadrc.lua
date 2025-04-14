@@ -2,9 +2,9 @@
 -- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 -- Please read that file to know all available options
 
--- local separators = { left = "", right = "" },
--- local sep_l = separators["left"]
--- local sep_r = separators["right"]
+local separators = { left = "", right = "" }
+local sep_l = separators["left"]
+local sep_r = separators["right"]
 
 
 ---@type ChadrcConfig
@@ -31,20 +31,57 @@ return {
   --     selected_item_bg = "colored", -- colored / simple
   --   },
     statusline = {
-      -- order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor" },
+      theme = 'default',
+      order = {
+        "mode",
+        "file",
+        "git",
+        "%=",
+        "lsp_msg",
+        "%=",
+        -- "macro",
+        "python_venv",
+        "diagnostics",
+        "lsp",
+        "cwd",
+        "cursor"
+      },
       modules = {
+        python_venv = function()
+          -- only show virtual env for Python
+          if vim.bo.filetype ~= 'python' then
+            return ""
+          end
+
+          local conda_env = os.getenv('CONDA_DEFAULT_ENV')
+          local venv_path = os.getenv('VIRTUAL_ENV')
+
+          if venv_path == nil then
+            if conda_env == nil then
+              return ""
+            else
+              return string.format("  %s (conda)", conda_env)
+            end
+          else
+            local venv_name = vim.fn.fnamemodify(venv_path, ':t')
+            return string.format("  %s (venv)", venv_name)
+          end
+        end,
+
         lsp = function()
           if rawget(vim, "lsp") then
             local stbufnr_val = vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 
             for _, client in ipairs(vim.lsp.get_clients()) do
               if client.attached_buffers[stbufnr_val] then
-                return " " .. (vim.o.columns > 100 and " " .. client.name or "")
+                local text = (vim.o.columns > 100 and " %#St_Lsp_text#" .. client.name or "")
+                return "%#St_Lsp_sep#%#St_Lsp_icon# " .. text
               end
             end
           end
           return ""
         end,
+
         file = function()
           local icon = vim.bo.modified and "󰧭" or "󰈚"
           local stbufnr_val = vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
@@ -58,11 +95,14 @@ return {
             if devicons_present then
               local ft_icon = devicons.get_icon(name)
               icon = (ft_icon ~= nil and ft_icon) or icon
-              name = ""
             end
+            local name = " " .. name .. (sep_style == "default" and " " or "")
+  
+          else
+            name = ""
           end
 
-          return { icon, name }
+          return "%#St_file# " .. icon .. name .. "%#St_file_sep#" .. sep_r
         end
       }
     }

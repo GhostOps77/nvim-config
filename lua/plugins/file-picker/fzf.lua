@@ -5,7 +5,18 @@ return {
     "nvim-tree/nvim-web-devicons",
     "nvim-treesitter/nvim-treesitter"
   },
+  opts = {
+    files = {
+      formatter = "path.filename_first",
+    }
+  },
   config = function(_, opts)
-    require('fzf-lua').setup({ 'telescope' })
+    local table = { 'telescope' }
+
+    for k, v in pairs(opts) do
+      table[k] = v
+    end
+
+    require('fzf-lua').setup(table)
   end
 }

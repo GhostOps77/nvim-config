@@ -108,11 +108,11 @@ map("v", "<leader>/", "gc", { desc = "Toggle comment", nowait = true, remap = tr
 map("n", "gD", vim.lsp.buf.declaration, { desc = "LSP declaration" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "LSP definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
-map("n", "gi", vim.lsp.buf.implementation, { desc = "LSP implementation" })
-map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
+-- map("n", "gi", vim.lsp.buf.implementation, { desc = "LSP implementation" })
+-- map("n", "<leader>sh", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
 map("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "LSP definition type" })
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
-map("n", "<leader>gr", vim.lsp.buf.references, { desc = "LSP references" })
+-- map({ "n", 'v' }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+-- map("n", "gr", vim.lsp.buf.references, { desc = "LSP references" })
 
 map("n", "<leader>ra", function() -- LSP renamer from nvchad.
   require("nvchad.lsp.renamer")()
@@ -194,6 +194,10 @@ map("n", "<leader>gt", function()
   require('fzf-lua').git_status()
 end, { desc = "Git status" })
 
+map({ "n", "v", "i" }, "<C-x><C-f>", function()
+  require("fzf-lua").complete_path()
+end, { silent = true, desc = "Fuzzy complete path" })
+
 -- theme switcher
 -- map("n", "<leader>th", "<cmd> FzfLua themes switcher <CR>", { desc = "Nvchad themes" })
 
@@ -266,17 +270,37 @@ map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights", silent = true }
 
 ----------------------------------------- nvzone/menu ------------------------------------
 
-map({ "n", "v" }, "<RightMouse>", function()
-  require('menu.utils').delete_old_menus()
+-- map({ "n", "v" }, "<RightMouse>", function()
+--   if not package.loaded.menu then
+--     return
+--   end
 
-  vim.cmd.exec '"normal! \\<RightMouse>"'
+--   require('menu.utils').delete_old_menus()
 
-  -- clicked buf
-  local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
-  local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+--   vim.cmd.exec '"normal! \\<RightMouse>"'
 
-  require("menu").open(options, { mouse = true })
-end)
+--   -- clicked buf
+--   local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+--   local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+
+--   require("menu").open(options, { mouse = true })
+-- end)
+
+-- map({ "n", "v" }, "<LeftMouse>", function()
+--   if not package.loaded.menu then
+--     return
+--   end
+
+--   require('menu.utils').delete_old_menus()
+
+--   vim.cmd.exec '"normal! \\<LefttMouse>"'
+
+--   -- clicked buf
+--   local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+--   local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+
+--   require("menu").open(options, { mouse = true })
+-- end)
 
 -- map({ "n", "v" }, "<ESC>", function ()
 --   require('menu.utils').delete_old_menus()
