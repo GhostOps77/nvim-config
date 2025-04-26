@@ -291,6 +291,8 @@ return {
       },
     })
 
+    local config = require('cmp.config')
+
     local toggle_ghost_text = function()
       if vim.api.nvim_get_mode().mode ~= 'i' then
         return
@@ -302,9 +304,9 @@ return {
   
       local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
   
-      local current = opts.get().experimental.ghost_text
+      local current = config.get().experimental.ghost_text
       if current ~= should_enable_ghost_text then
-        opts.set_global({
+        config.set_global({
           experimental = {
             ghost_text = should_enable_ghost_text,
           },
@@ -328,26 +330,6 @@ return {
     opts.mapping = opts.mapping or mapping
     opts.sources = opts.sources or sources
     opts.snippet = opts.snippet or snippet
-
-    -- local highlight = vim.api.nvim_set_hl
-
-    -- -- vscode dark+ like colour theme for menu.
-    -- -- gray
-    -- highlight(0, 'CmpItemAbbrDeprecated', { bg='NONE', strikethrough=true, fg='#808080' })
-    -- -- blue
-    -- highlight(0, 'CmpItemAbbrMatch', { bg='NONE', fg='#569CD6' })
-    -- highlight(0, 'CmpItemAbbrMatchFuzzy', { link='CmpIntemAbbrMatch' })
-    -- -- light blue
-    -- highlight(0, 'CmpItemKindVariable', { bg='NONE', fg='#9CDCFE' })
-    -- highlight(0, 'CmpItemKindInterface', { link='CmpItemKindVariable' })
-    -- highlight(0, 'CmpItemKindText', { link='CmpItemKindVariable' })
-    -- -- pink
-    -- highlight(0, 'CmpItemKindFunction', { bg='NONE', fg='#C586C0' })
-    -- highlight(0, 'CmpItemKindMethod', { link='CmpItemKindFunction' })
-    -- -- front
-    -- highlight(0, 'CmpItemKindKeyword', { bg='NONE', fg='#D4D4D4' })
-    -- highlight(0, 'CmpItemKindProperty', { link='CmpItemKindKeyword' })
-    -- highlight(0, 'CmpItemKindUnit', { link='CmpItemKindKeyword' })
 
     cmp.setup(opts)
   end

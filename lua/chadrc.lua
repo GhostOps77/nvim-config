@@ -15,7 +15,7 @@ return {
       -- highlights for lsp segment in statusline
       St_Lsp_icon = { bg = 'nord_blue', fg = 'black' },
       St_Lsp_text = { bg = 'lightbg', fg = 'white' },
-      St_file_italic = { bg = 'lightbg', italic = true }
+      St_file_italic = { bg = 'lightbg', italic = true },
 
       -- vscode dark+ like colour theme for menu.
       -- gray
