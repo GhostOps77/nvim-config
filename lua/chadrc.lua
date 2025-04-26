@@ -16,7 +16,26 @@ return {
       St_Lsp_icon = { bg = 'nord_blue', fg = 'black' },
       St_Lsp_text = { bg = 'lightbg', fg = 'white' },
       St_file_italic = { bg = 'lightbg', italic = true }
+
+      -- vscode dark+ like colour theme for menu.
+      -- gray
+      CmpItemAbbrDeprecated = { bg='NONE', strikethrough=true, fg='#808080' },
+      -- blue
+      CmpItemAbbrMatch = { bg='NONE', fg='#569CD6' },
+      CmpItemAbbrMatchFuzzy = { link='CmpIntemAbbrMatch' },
+      -- light blue
+      CmpItemKindVariable = { bg='NONE', fg='#9CDCFE' },
+      CmpItemKindInterface = { link='CmpItemKindVariable' },
+      CmpItemKindText = { link='CmpItemKindVariable' },
+      -- pink
+      CmpItemKindFunction = { bg='NONE', fg='#C586C0' },
+      CmpItemKindMethod = { link='CmpItemKindFunction' },
+      -- front
+      CmpItemKindKeyword = { bg='NONE', fg='#D4D4D4' },
+      CmpItemKindProperty = { link='CmpItemKindKeyword' },
+      CmpItemKindUnit = { link='CmpItemKindKeyword' },
     },
+
 
     hl_override = {
     	Comment = { italic = true },
