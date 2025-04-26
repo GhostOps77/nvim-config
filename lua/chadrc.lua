@@ -19,8 +19,8 @@ return {
     },
 
     hl_override = {
-    	-- Comment = { italic = true },
-    	-- ["@comment"] = { italic = true },
+    	Comment = { italic = true },
+    	["@comment"] = { italic = true },
 
       -- highlights for lsp segment in statusline
       St_Lsp = { fg = 'nord_blue' },
@@ -41,20 +41,20 @@ return {
     },
     statusline = {
       theme = 'default',
-      order = {
-        "mode",
-        "file",
-        "git",
-        "%=",
-        "lsp_msg",
-        "%=",
-        -- "macro",
-        "python_venv",
-        "diagnostics",
-        "lsp",
-        -- "cwd",
-        "cursor"
-      },
+			order = {
+				"mode",
+				"file",
+				"git",
+				"%=",
+				"lsp_msg",
+				"%=",
+				-- "macro",
+				"python_venv",
+				"diagnostics",
+				"lsp",
+				-- "cwd",
+				"cursor"
+			},
       modules = {
         python_venv = function()
           -- only show virtual env for Python
