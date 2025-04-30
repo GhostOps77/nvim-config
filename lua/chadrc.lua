@@ -2,6 +2,9 @@
 -- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 -- Please read that file to know all available options
 
+
+local utils = require "nvchad.stl.utils"
+
 local sep_l = ""
 local sep_r = ""
 
@@ -15,7 +18,7 @@ return {
       -- highlights for lsp segment in statusline
       St_Lsp_icon = { bg = 'nord_blue', fg = 'black' },
       St_Lsp_text = { bg = 'lightbg', fg = 'white' },
-      St_file_italic = { bg = 'lightbg', italic = true },
+      St_file_italic = { bg = 'lightbg', fg = 'white', italic = true },
 
       -- vscode dark+ like colour theme for menu.
       -- gray
@@ -51,13 +54,13 @@ return {
     -- tabufline = {
     --     lazyload = false
     -- },
-    cmp = {
-      icons = true,
-      lspkind_text = false,
-      style = "default", -- default/flat_light/flat_dark/atom/atom_colored
-      border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
-      selected_item_bg = "colored", -- colored / simple
-    },
+    -- cmp = {
+    --   icons = true,
+    --   lspkind_text = false,
+    --   style = "default", -- default/flat_light/flat_dark/atom/atom_colored
+    --   border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
+    --   selected_item_bg = "colored", -- colored / simple
+    -- },
     statusline = {
       theme = 'default',
 			order = {
@@ -75,6 +78,19 @@ return {
 				"cursor"
 			},
       modules = {
+        mode = function()
+          if not utils.is_activewin() then
+            return ""
+          end
+
+          local modes = utils.modes
+
+          local m = vim.api.nvim_get_mode().mode
+
+          local current_mode = "%#St_" .. modes[m][2] .. "Mode# " .. modes[m][1]
+          local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r
+          return current_mode .. mode_sep1 .. "%#ST_EmptySpace#" .. sep_r
+        end,
         python_venv = function()
           -- only show virtual env for Python
           if vim.bo.filetype ~= 'python' then

@@ -2,7 +2,9 @@ return {
   "nvim-tree/nvim-web-devicons",
   -- enabled = false,
   opts = function()
-    return { override = require "nvchad.icons.devicons" }
+    return {
+      override = require "nvchad.icons.devicons"
+    }
   end,
   config = function(_, opts)
     dofile(vim.g.base46_cache .. "devicons")

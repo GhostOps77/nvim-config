@@ -3,6 +3,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
-  -- lazy = false,
+  lazy = false,
   branch = "v2.5",
 }
