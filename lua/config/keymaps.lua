@@ -315,23 +315,23 @@ map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights", silent = true }
 
 -------------------------------------- Debugging -----------------------------------------
 -- Breakpoints
-map("n", "bb", function()
+map("n", "<leader>bb", function()
   require('dap').toggle_breakpoint()
 end, { desc = "DEBUG Toggle breakpoint" })
 
-map("n", "bc", function()
+map("n", "<leader>bc", function()
   require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
 end, { desc = "DEBUG Set conditional breakpoint" })
 
-map("n", "bl", function()
+map("n", "<leader>bl", function()
   require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
 end, { desc = "DEBUG Set breakpoint with log msg" })
 
-map("n", 'br', function()
+map("n", '<leader>br', function()
   require('dap').clear_breakpoints()
 end, { desc = "DEBUG Clear breakpoints" })
 
-map("n", 'ba', function()
+map("n", '<leader>ba', function()
   require('fzf-lua').dap_breakpoints()
 end, { desc = "DEBUG List all breakpoints" })
 

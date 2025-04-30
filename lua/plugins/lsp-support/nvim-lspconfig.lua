@@ -1,5 +1,8 @@
 local merge = vim.tbl_deep_extend
 
+local x = vim.diagnostic.severity
+
+
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
@@ -7,6 +10,10 @@ return {
   opts = {
     -- options for vim.diagnostic.config()
     diagnostics = {
+      signs = {
+        text = { [x.ERROR] = "󰅙", [x.WARN] = "", [x.INFO] = "󰋼", [x.HINT] = "󰌵" }
+      },
+      float = { border = "single" },
       underline = true,
       update_in_insert = false,
       virtual_text = {
@@ -18,7 +25,7 @@ return {
         -- prefix = "icons",
       },
       severity_sort = true,
-    },
+    }
   },
   dependencies = {
     -- LSP Management
@@ -40,30 +47,25 @@ return {
       --   -- No module named 'lazyvim.util' found.
       --   return require("lazyvim.util").has("nvim-cmp")
       -- end,
-    },
+    }
   },
   config = function(_, opts)
+    dofile(vim.g.base46_cache .. 'lsp')
     -- require('mason').setup()
 
-    vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+    vim.diagnostic.config(opts.diagnostics)
 
     -- Call mason lspconfig's default config setup
     local mason_lspconfig = require 'mason-lspconfig'
-    mason_lspconfig.setup()
+    -- mason_lspconfig.setup()
     -- require('mason-tool-installer').setup({})
 
     -- Call nvchad's default setup config on each LSP server
-    local nvlsp = require "nvchad.configs.lspconfig"
-    nvlsp.defaults()
+    -- local nvlsp = require "nvchad.configs.lspconfig"
+    -- nvlsp.defaults()
 
-    local lspconfig = require "lspconfig"
+    local lspconfig = require 'lspconfig'
     local cmp_lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-    local default_capabilities = merge('force',
-      vim.lsp.protocol.make_client_capabilities(),
-      cmp_lsp_capabilities,
-      nvlsp.capabilities
-    )
 
     mason_lspconfig.setup_handlers {
       function(server_name)
@@ -72,11 +74,7 @@ return {
 
         -- merging lsps config with default and custom configs
         lspconfig[server_name].setup(merge('force', {
-          on_attach = nvlsp.on_attach,
-          on_init = nvlsp.on_init,
-          -- capabilities = nvlsp.capabilities,
-          -- capabilities = lsp_capabilities,
-          capabilities = default_capabilities
+          capabilities = cmp_lsp_capabilities
         }, default_server_config))
       end
     }

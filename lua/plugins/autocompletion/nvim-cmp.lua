@@ -1,15 +1,8 @@
--- local cmp_ui = {
---   icons = true,
---   -- lspkind_text = true,
---   lspkind_text = false,
---   style = "default", -- default/flat_light/flat_dark/atom/atom_colored
---   border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
---   selected_item_bg = "colored", -- colored / simple
--- }
+-- local cmp_ui = require 'nvconfig'.ui.cmp
 
--- local cmp_ui = require 'chadrc'.ui.cmp
 local cmp_ui = {
   icons = true,
+  -- lspkind_text = true,
   lspkind_text = false,
   style = "default", -- default/flat_light/flat_dark/atom/atom_colored
   border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
@@ -18,10 +11,12 @@ local cmp_ui = {
 
 local cmp_lsp_icons = {
   Text = ' ',
+
   -- Method = ' ',
   -- Function = ' ',
   Method = '󰅲 ',
   Function = '󰅲 ',
+
   Constructor = ' ',
   Field = ' ',
   Variable = ' ',
@@ -51,13 +46,13 @@ local cmp_custom_src_icons = {
   calc = "󰃬 ",
 }
 
-bufIsBig = function(bufnr)
+local bufIsBig = function(bufnr)
 	local max_filesize = 100 * 1024 -- 100 KB
 	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
 	return ok and stats and stats.size > max_filesize
 end
 
-isEnabled = function()
+local isEnabled = function()
   if vim.api.nvim_get_mode().mode ~= 'i' then
     return false
   end
@@ -128,8 +123,8 @@ return {
           side_padding = is_cmp_style_atom and 1 or 0,
           winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
           scrollbar = true,
-          border = (is_cmp_style_atom and border "CmpBorder") or options.window.completion.border
-          -- border = border "CmpBorder"
+          -- border = (is_cmp_style_atom and border "CmpBorder") or options.window.completion.border
+          border = border "CmpBorder"
         },
         documentation = {
           border = border "CmpDocBorder",
@@ -260,7 +255,7 @@ return {
       end, { "i", "s" }),
     }
 
-    sources = cmp.config.sources({
+    local sources = cmp.config.sources({
         -- { name = 'calc' }, -- Suggest calculated results
         { name = "nvim_lsp" }, -- lsp
         { name = 'nvim_lua' },
@@ -278,7 +273,7 @@ return {
       }
     )
 
-    snippet = {
+    local snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
@@ -304,13 +299,12 @@ return {
       if vim.api.nvim_get_mode().mode ~= 'i' then
         return
       end
-  
       local cursor_column = vim.fn.col('.')
+
       local current_line_contents = vim.fn.getline('.')
-      local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
-  
+
+			local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
       local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
-  
       local current = config.get().experimental.ghost_text
       if current ~= should_enable_ghost_text then
         config.set_global({
@@ -320,8 +314,8 @@ return {
         })
       end
     end
-  
-    vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
+
+		vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
       callback = toggle_ghost_text,
     })
 

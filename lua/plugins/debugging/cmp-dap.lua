@@ -1,6 +1,6 @@
 return {
   'rcarriga/cmp-dap',
-  event = { 'InsertEnter' },
+  -- event = { 'InsertEnter' },
   dependencies = {
     -- 'hrsh7th/nvim-cmp',
     'rcarriga/nvim-dap-ui'

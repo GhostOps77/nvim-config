@@ -9,7 +9,7 @@ local supported_filetypes = {
 return {
   -- https://github.com/rcarriga/nvim-dap-ui
   'rcarriga/nvim-dap-ui',
-  event = { "InsertEnter", 'BufReadPre', 'BufNewFile' },
+  -- event = { "InsertEnter", 'BufReadPre', 'BufNewFile' },
   condn = function()
     local ft = vim.bo.filetype
     for _, pft in ipairs(supported_filetypes) do
@@ -91,15 +91,6 @@ return {
   config = function (_, opts)
     require('dapui').setup(opts)
 
-    -- Customize breakpoint signs
-    vim.api.nvim_set_hl(0, "DapStoppedHl", { fg = "#98BB6C", bg = "#2A2A2A", bold = true })
-    vim.api.nvim_set_hl(0, "DapStoppedLineHl", { bg = "#204028", bold = true })
-    vim.fn.sign_define('DapStopped', { text='', texthl='DapStoppedHl', linehl='DapStoppedLineHl', numhl= '' })
-    vim.fn.sign_define('DapBreakpoint', { text='', texthl='DiagnosticSignError', linehl='', numhl='' })
-    vim.fn.sign_define('DapBreakpointCondition', { text='', texthl='DiagnosticSignWarn', linehl='', numhl='' })
-    vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DiagnosticSignError', linehl='', numhl= '' })
-    vim.fn.sign_define('DapLogPoint', { text='', texthl='DiagnosticSignInfo', linehl='', numhl= '' })
-    
     local dap = require('dap')
     dap.listeners.after.event_initialized["dapui_config"] = function()
       require('dapui').open()
