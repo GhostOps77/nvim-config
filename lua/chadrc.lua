@@ -84,9 +84,7 @@ return {
           end
 
           local modes = utils.modes
-
           local m = vim.api.nvim_get_mode().mode
-
           local current_mode = "%#St_" .. modes[m][2] .. "Mode# " .. modes[m][1]
           local mode_sep1 = "%#St_" .. modes[m][2] .. "ModeSep#" .. sep_r
           return current_mode .. mode_sep1 .. "%#ST_EmptySpace#" .. sep_r
