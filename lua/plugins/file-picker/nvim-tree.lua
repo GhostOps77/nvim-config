@@ -28,7 +28,7 @@ return {
       preserve_window_proportions = true,
     },
     git = {
-      enable = true,
+      enable = false,
       ignore = true,
     },
     filesystem_watchers = {
@@ -43,11 +43,11 @@ return {
       root_folder_label = false,
       highlight_git = true,
       highlight_opened_files = "none",
-  
+
       indent_markers = {
         enable = false,
       },
-  
+
       icons = {
         show = {
           file = true,
@@ -55,7 +55,7 @@ return {
           folder_arrow = false,
           git = false,
         },
-  
+
         glyphs = {
           default = "󰈚",
           symlink = "",
@@ -77,10 +77,10 @@ return {
             untracked = "★",
             deleted = "",
             ignored = "◌",
-          },
-        },
-      },
-    },
+          }
+        }
+      }
+    }
   },
   config = function(_, opts)
     dofile(vim.g.base46_cache .. "nvimtree")

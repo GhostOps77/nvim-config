@@ -103,7 +103,7 @@ map('n', '<leader>th', 'gT', { noremap = true, silent = true })  -- Previous tab
 map("n", "<leader>/", "gcc", { desc = "Toggle comment", nowait = true, remap = true })
 map("v", "<leader>/", "gc", { desc = "Toggle comment", nowait = true, remap = true })
 
----------------------------------------- lspconfig--- ------------------------------------
+---------------------------------------- lspconfig ---------------------------------------
 -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 map("n", "gD", vim.lsp.buf.declaration, { desc = "LSP declaration" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "LSP definition" })
@@ -144,7 +144,6 @@ map("v", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 --------------------------------------------- NvimTree -----------------------------------
 map("n", "<C-n>", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle nvimtree" })
 map("n", "<leader>e", "<cmd> NvimTreeFocus <CR>", { desc = "Focus nvimtree" })
--- map('n', '<C-')
 
 --------------------------------------------- Telescope -----------------------------------
 -- -- find

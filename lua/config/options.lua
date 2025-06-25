@@ -11,10 +11,10 @@ local delim = is_windows and ";" or ":"
 local tab_width = 2
 
 -------------------------------------- globals -----------------------------------------
-g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
+-- g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
 g.toggle_theme_icon = "   "
 g.have_nerd_font = true
-g.mapleader = " "
+-- g.mapleader = " "
 
 -- remove default auto indentation for python files. 
 g.python_recommended_style = 0

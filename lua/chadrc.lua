@@ -3,8 +3,8 @@
 -- Please read that file to know all available options
 
 
-local utils = require "nvchad.stl.utils"
-
+-- local utils = require "nvchad.stl.utils"
+--
 local sep_l = ""
 local sep_r = ""
 
@@ -79,6 +79,7 @@ return {
 			},
       modules = {
         mode = function()
+					local utils = require "nvchad.stl.utils"
           if not utils.is_activewin() then
             return ""
           end
